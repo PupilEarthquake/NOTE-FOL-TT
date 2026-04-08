@@ -12,7 +12,7 @@
 % \RequirePackage[intlimits]{amsmath}   % intlimits会使积分号上下限处于上下位置
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
-\RequirePackage[centercolon]{mathtools}
+\RequirePackage{mathtools}
 
 \RequirePackage{hyperref}
 \RequirePackage{tabularx}  % 支持自动换行的文本框

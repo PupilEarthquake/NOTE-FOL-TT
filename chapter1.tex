@@ -254,11 +254,11 @@ We first introduce some symbols in order to construct a formal language:
 \end{itemize}
 Then we let
 \[
-  \Fml = C | V | S | BV:\Fml.\Fml | I C \Fml | \Fml \Fml
+  \Fml = C | V | S | (BV:\Fml.\Fml) | (I \Fml) | (\Fml \Fml)
 \]
 
 
-Axioms $\cl A \subset S^2$ and rules $\cl R \subset S^3$ are set as follows
+Axioms $\cl A \subset S^2$ and rules $\cl R \subset S^3$ are defined as follows
 \begin{gather*}
   \cl A = \{ (\Set, \Type_0), (\Prop, \Type_0), (\Type_i, \Type_{i+1}) \}\\
   \cl R = \{ (\Prop, \Prop, \Prop), (\Set, \Prop, \Prop), (\Type_i, \Prop, \Prop), \\ 
@@ -276,18 +276,18 @@ Note that $\Pi (\bm x : \bm A) \varphi$ is the abbreviation of $\Pi x_0 : A_0 . 
 \begin{definition}
   The Arity has the form
   \[
-    \mr{A} = S | \Pi(V : \Fml). \mr{A}.
+    \mr{A} = S | (\Pi V : \Fml. \mr{A})
   \]
 
   For any $X \in C$, the Strictly Positive Types has the form
   \[
-    \mr P_{X} = X | \mr P_{X} \Fml  (X \notin \Fml)  | \Pi V : \Fml . \mr P_{X} (X \notin \Fml) .
+    \mr P_{X} = X | (\mr P_{X} \underbracket{\Fml}_{X \notin \Fml})  | (\Pi V : \underbracket{\Fml}_{X \notin \Fml} . \mr P_{X} )
   \] 
   The Constructors has the form
   \[
-    \mr C _X  = X | \mr C_X \Fml (X \notin \Fml) | \Pi V : \Fml . \mr C_X (X \notin \Fml)| \Pi V : \Fml . \mr C_X (V \notin \mr C_X).
+    \mr C _X  = X |( \mr C_X \underbracket{\Fml}_{X \notin \Fml}) |( \Pi V : \underbracket{\Fml}_{X \notin \Fml} . \mr C_X ) | ( \Pi V : \mr P_X . \underbracket{\mr C_X}_{V \notin \mr C_X})
   \]
-  Any $h \in \mr C_X \smallsetminus \mr P_X$ is called recursive. 
+  Any element $\mr C_X \smallsetminus \mr P_X$ is called recursive. 
 \end{definition}
 
 
@@ -346,6 +346,171 @@ Note that $\Pi (\bm x : \bm A) \varphi$ is the abbreviation of $\Pi x_0 : A_0 . 
     \item closed under the following operations: $\Fml -, - \Fml, B V: \Fml.-, B V: -. \Fml, C \bm p_1 - \bm p_2$.
   \end{itemize}
 \end{definition}
+
+
+
+
+\begin{proposition}
+  Any element in $\mr C_X$ and $\mr P_X$ has the form 
+  \[
+    \Pi (\bm x : \bm M) . (X \bm N)
+  \]
+  which is unique \textbf{under} $\sim_{\beta, \Delta}$.
+\end{proposition}
+
+
+
+
+
+
+
+
+Suppose $X$ is a constant symbol, $c_i \in \mr C_X$, and $\Pi (\bm x: \bm A).s \in \rm A$, then
+\[
+  \begin{array}{llll}
+    \Delta   &\Gamma   &X: \Pi (\bm x: \bm A).s   &c_0 : s\\
+             &         &\vdots                    &       \\
+    \Delta   &\Gamma   &X: \Pi (\bm x: \bm A).s   &c_m : s\\
+    \Delta   &\Gamma   &\Ind X :  \Pi (\bm x: \bm A).s   &
+  \end{array}
+\]
+and it immediately follows that
+\[
+  \begin{array}{lll}
+    \Delta   &\Gamma   &\Ind X :  \Pi (\bm x: \bm A).s \\
+    \Delta   &\Gamma   &\Cstr \Ind X i : c_i \frac{\Ind X}{X}
+  \end{array}
+\]
+($i$ is a constant belongs to $C$)
+
+
+
+
+
+% Assume that $ X : \Pi (\bm x: \bm A).s $, $Y :  \Pi (\bm x: \bm A).s'$ and $c \in \mr C_X$. 
+
+% This induces a function $E_{X, Y}: \mr C_X \to \mr C_Y$, which is defined inductively.
+% \begin{align*}
+%   &E_{X, Y}(X) = X\\
+%   &E_{X, Y}(c M) =  E_{X, Y}(c) M\\
+%   &E_{X, Y}(M \to c) = M \to M[Y/X] \to E_{X, Y}(c) \\
+%   &E_{X, Y}(\Pi x: M.c) = \Pi x: M. E_{X, Y}(c) \ (X \notin M)
+% \end{align*}
+% 
+% 
+% \begin{lemma}
+%   If for all $s''$, $(s'', s) \in \cl A$ implies $(s'', s') \in \cl A$, and $(s', s') \in \cl A$, then the follows is derivable
+%   \[
+%     \begin{array}{lllll}
+%       \Delta   &\Gamma   &X :  \Pi (\bm x: \bm A).s   & c:s  & \\
+%       \Delta   &\Gamma   &\Pi (\bm x: \bm A).s' & &\\
+%       \Delta   &\Gamma   &X :  \Pi (\bm x: \bm A).s   &Y :  \Pi (\bm x: \bm A).s'  & E_{X, Y} (c) : s'
+%     \end{array}
+%   \]
+% \end{lemma}
+% 
+% 
+% 
+% If $f_0, \cdots, f_m$ and $G$ are new constant symbols, we have
+% \[
+%   \begin{array}{lll}
+%     \Delta   &\Gamma   & G: \Ind X \bm a  \\
+%     \Delta   &\Gamma   & Y : \Pi (\bm x: \bm A).s' \\
+%     \Delta   &\Gamma   & f_0 : E_{X, Y}(c_0) \\
+%              &         & \vdots \\
+%     \Delta   &\Gamma   & f_m : E_{X, Y}(c_m) \\
+%     \Delta   &\Gamma   & \Elim G Y f_0 f_1 \cdots f_m : Y \bm a
+%   \end{array}
+% \]
+% 
+
+
+
+% Assume that $ X : \Pi (\bm x: \bm A).s $, $Y :  \Pi (\bm x: \bm A).s'$, $d : c \in \mr C_X$ and $p : P = \Pi(\bm x' : \bm P') . (X \bm m') \in \mr P_X$, we define a new function $E_{X, Y, d} : \mr C_X \to \mr C_Y$, as follows
+Assume that 
+
+\begin{itemize}
+  \item $\Fml \ni X : \Pi (\bm x: \bm A).s $
+  \item $C \ni Y :  \Pi (\bm x: \bm A).(X \bm x) \to s'$
+  \item $\Fml \ni d : c \in \mr C_X$
+  \item $P = \Pi(\bm x' : \bm P') . (X \bm m') \in \mr P_X$
+  \item $p \in V$ is a new variable
+\end{itemize}
+we can define a new function $E_{X, Y, d} : \mr C_X \to \mr C_Y$ inductivly, as follows
+
+
+
+\begin{align*}
+  & E_{X, Y, d}(X) = Y \\ 
+  & E_{X, Y, d}(c M) = (E_{X, Y, d}(c) M) d \\
+  & E_{X, Y, d}(P \to c) = \Pi p : P . (\Pi (\bm x' : \bm P') . Y \bm m' (p \bm x')  \to E_{X, Y, d p} (c)) \\
+  & E_{X, Y, d}(\Pi x : M. c) = \Pi x : M . E_{X, Y, d x}(c)
+\end{align*}
+
+
+
+
+
+
+
+
+% \begin{lemma}
+%   If for all $s''$, $(s'', s) \in \cl A$ implies $(s'', s') \in \cl A$, and $(s', s') \in \cl A$, then the follows is derivable
+%   \[
+%     \begin{array}{lllll}
+%       \Delta   &\Gamma   &X :  \Pi (\bm x: \bm A).s   & c:s  & \\
+%       \Delta   &\Gamma   &(\Pi (\bm x: \bm A).(X \bm x)) \to s' & &\\
+%       \Delta   &\Gamma   &X :  \Pi (\bm x: \bm A).s   &Y :  (\Pi (\bm x: \bm A).(X \bm x)) \to s'  & E_{X, Y, d} (c) : s'
+%     \end{array}
+%   \]
+% \end{lemma}
+% 
+% 
+% 
+
+
+
+
+
+
+If $f_0, \cdots, f_m$ and $G$ are new constant symbols, we have
+\[
+  \begin{array}{lll}
+    \Delta   &\Gamma   & G: \Ind X \bm a  \\
+    \Delta   &\Gamma   & Y : \Pi (\bm x: \bm A) . ((\Ind X \bm x) \to s') \\
+    \Delta   &\Gamma   & f_0 : E_{\Ind X, Y, \Cstr \Ind X 0}(c_0) \\
+             &         & \vdots \\
+    \Delta   &\Gamma   & f_m : E_{\Ind X, Y, \Cstr \Ind X m}(c_m) \\
+    \Delta   &\Gamma   & \Elim G Y f_0 f_1 \cdots f_m : (Y \bm a G)
+  \end{array}
+\]
+
+
+
+
+
+
+
+Again, suppose $u, v \in \Fml$ we define a function $H_{X, u, v}: \mr C_X \to \Fml$, by letting
+\begin{align*}
+  & H_{X, u ,v} (X) = v \\
+  & H_{X, u ,v} (c M) = H_{X, u ,v} (c) \\
+  & H_{X, u ,v} (P \to c) = \lambda p: P . H_{X, u ,(v p \lambda (\bm x : \bm P). (v \bm m (p \bm x)))}(c) \\
+  & H_{X, u ,v} (\Pi x : M. c) = \lambda x : M . H_{X, u ,v x} (c)
+\end{align*}
+
+
+
+
+\begin{definition}
+  Suppose $\bm f$ has the shape of $m$, $\rightarrow_{\iota}$ is a relation in $\Fml^2$ contains
+  \[
+  \Elim \Cstr \Ind X i \bm m Y \bm f \rightarrow_{\iota} H_{\Ind X, \lambda(\bm x : \bm A). \lambda G : \Ind X \bm x . \Elim G Y \bm f , f_i } (c_i)\bm m
+  \]
+\end{definition}
+
+
+
 
 
 
@@ -455,7 +620,7 @@ If $\Delta$ contains the element
 that $d(\bm y)$ could be empty, and we have $\bm U \in \Fml^*$ with the same size of $\bm y$, then 
 \[
   \begin{array}{lll}
-    \Delta & \Gamma & * : \square 
+    \Delta & \Gamma & s_1 : s_2  \ (\in \cl A) 
     \\ 
     \Delta & \Gamma & U_0 : B_0 \frac{\bm U}{\bm y}
     \\
@@ -471,23 +636,15 @@ that $d(\bm y)$ could be empty, and we have $\bm U \in \Fml^*$ with the same siz
 
 
 
-
-Now we introduce the rule of inductions. 
-
-Suppose $X$ is a constant symbol, $c_i \in \mr C_X$, and $\Pi (\bm x: \bm A).s \in \rm A$, then
+\subsubsection*{(Conv)}
+If $a \sim_{\Delta, \beta} a'$, then
 \[
   \begin{array}{llll}
-    \Delta   &\Gamma   &X: \Pi (\bm x: \bm A).s   &c_0 : s\\
-             &         &\vdots                    &       \\
-    \Delta   &\Gamma   &X: \Pi (\bm x: \bm A).s   &c_m : s\\
-    \Delta   &\Gamma   &\Ind X :  \Pi (\bm x: \bm A).s   &
-  \end{array}
-\]
-and it immediately follows that
-\[
-  \begin{array}{lll}
-    \Delta   &\Gamma   &\Ind X :  \Pi (\bm x: \bm A).s \\
-    \Delta   &\Gamma   &\Cstr X c_i : c_i \frac{\Ind X}{X}
+    \Delta & \Gamma & \varphi : a
+    \\ 
+    \Delta & \Gamma & a' : s
+    \\
+    \Delta & \Gamma & \varphi : a' 
   \end{array}
 \]
 
@@ -495,34 +652,4 @@ and it immediately follows that
 
 
 
-Assume that $ X : \Pi (\bm x: \bm A).s $, $Y :  \Pi (\bm x: \bm A).s'$ and $c \in \mr C_X$. This induces a function $E_{X, Y}: \mr C_X \to \mr C_Y$, which is defined inductively.
-\begin{align*}
-  &E_{X, Y}(X) = X\\
-  &E_{X, Y}(c M) =  E_{X, Y}(c) M\\
-  &E_{X, Y}(M \to c) = M \to M[Y/X] \to E_{X, Y}(c) \\
-  &E_{X, Y}(\Pi x: M.c) = \Pi x: M. E_{X, Y}(c) \ (X \notin M)
-\end{align*}
 
-
-\begin{lemma}
-  If for all $s''$, $(s'', s) \in \cl A$ implies $(s'', s') \in \cl A$, and $(s', s') \in \cl A$, then the follows is derivable
-  \[
-    \begin{array}{lllll}
-      \Delta   &\Gamma   &X :  \Pi (\bm x: \bm A).s   & c:s  & \\
-      \Delta   &\Gamma   &\Pi (\bm x: \bm A).s' & &\\
-      \Delta   &\Gamma   &X :  \Pi (\bm x: \bm A).s   &Y :  \Pi (\bm x: \bm A).s'  & E_{X, Y} (c) : s'
-    \end{array}
-  \]
-\end{lemma}
-
-
-
-If $f_0, \cdots, f_m$ and $G$ are new constant symbols, we have
-\[
-  \begin{array}{lll}
-    \Delta   &\Gamma   & G: \Ind X a  \\
-    \Delta   &\Gamma   & Y : \Pi (\bm x: \bm A).s' \\
-    \Delta   &\Gamma   & f_i : E_{X, Y}(c_i) \\
-    \Delta   &\Gamma   & \Elim G Y f_0 f_1 \cdots f_m : Y a
-  \end{array}
-\]
