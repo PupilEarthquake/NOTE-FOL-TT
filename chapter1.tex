@@ -106,6 +106,21 @@ If $v \in V \smallsetminus (\Gamma \cap V)$, then
 \]
 
 
+\subsubsection*{Compu}
+Given the equivalence relation $=_a \subset \mr F^2$, if $B =_a B'$, then
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & M : B
+    \\ 
+    \bm D & \Gamma & B' : \cl U 
+    \\
+    \bm D & \Gamma & M : B'
+  \end{array}
+\]
+
+
+
+
 
 \section{SYS-1}
 
@@ -163,25 +178,27 @@ If $s_1 \leq s_2$, then
 \subsubsection*{SYS-1: Compu}
 
 \begin{definition}
+  $\rightarrow_{0} \subset \mr F^2$ is the samllest relation satisfies the following properties:
+  \begin{itemize}
+    \item for any $A, M$ in $\mr F$, $b \in B$ and $v_0, v_1 \in V$ such that $v_1 \in (M \cap V) \smallsetminus \{ v_0 \} $ 
+      \[
+        b(v_0 : A)M \rightarrow_0 b (v_1 : A) M \tfrac{v_1}{v_0};
+      \]
+    \item $\mr{Compatible}\rightarrow_0$.
+  \end{itemize}
+\end{definition}
+
+\begin{definition}
   $\rightarrow_{1} \subset \mr F^2$ is the samllest relation satisfies the following properties:
   \begin{itemize}
     \item for any $A, M, N$ in $\mr F$, $(\lambda (v : A) M N) \rightarrow_1 M \frac{N}{v}$;
     \item $\mr{Compatible}\rightarrow_1$.
   \end{itemize}
+  $=_1$ is the equivalence genertated by $\bigcup \{ \rightarrow_i \}_{i=0}^1$.
 \end{definition}
 
 
-Based on this newly defiened relation, we introduce the Computaiton Rule of SYS-1 as follows. If $B =_1 B'$, then
-
-\[
-  \begin{array}{lll}
-    \bm D & \Gamma & M : B
-    \\ 
-    \bm D & \Gamma & B' : \cl U 
-    \\
-    \bm D & \Gamma & M : B'
-  \end{array}
-\]
+% Based on this newly defiened relation, we introduce the Computaiton Rule of SYS-1 as follows. If $B =_1 B'$, then
 
 
 
@@ -251,12 +268,12 @@ Based on this newly defiened relation, we introduce the Computaiton Rule of SYS-
   \begin{array}{lll}
     \bm D & \Gamma & \Sigma (v : A) B : \cl U   
     \\
-    \bm D & \Gamma & \begin{gathered}  (\cc{Ind} \Sigma (v : A) B) :  \Pi (X:(\Sigma(v_0 : A)B) \rightarrow s) . \\  [\Pi(v_1 : A)(v_2 : B v_2) (X \cc{pair} v_1 v_2) \rightarrow \Pi(v_3: \Sigma(v_4 : A)B v_4) (X v_3)]
+    \bm D & \Gamma & \begin{gathered}  (\cc{Ind} \Sigma (v : A) B) :  \Pi (X:(\Sigma(v_0 : A)B) \rightarrow \cl U ) . \\  [\Pi(v_1 : A)(v_2 : B v_2) (X \cc{pair} v_1 v_2) \rightarrow \Pi(v_3: \Sigma(v_4 : A)B v_4) (X v_3)]
  \end{gathered}
-%    (\cc{Ind} \Sigma (v : A) B) :  \Pi (X:(\Sigma(v_0 : A)B) \rightarrow s) . [\Pi(v_1 : A)(v_2 : B v_2) (X \cc{pair} v_1 v_2) \rightarrow \Pi(v_3: \Sigma(v_4 : A)B v_4) (X v_3)]
+%    (\cc{Ind} \Sigma (v : A) B) :  \Pi (X:(\Sigma(v_0 : A)B) \rightarrow \cl U ) . [\Pi(v_1 : A)(v_2 : B v_2) (X \cc{pair} v_1 v_2) \rightarrow \Pi(v_3: \Sigma(v_4 : A)B v_4) (X v_3)]
   \end{array}
 \]
-可见如果给出常函数$H = \lambda(X : \Sigma(v_0 : A)B)Q : \Pi (X:(\Sigma(v_0 : A)B) \rightarrow s$, 还有
+可见如果给出常函数$H = \lambda(X : \Sigma(v_0 : A)B)Q : \Pi (X:(\Sigma(v_0 : A)B) \rightarrow \cl U $, 还有
 \[
   \phi : \Pi (v_0 : A)(v_1 : B v_0) H (\cc{pair} v_0 v_1) =  \Pi (v_0 : A)(v_1 : B v_0) Q,
 \]
@@ -278,7 +295,7 @@ Based on this newly defiened relation, we introduce the Computaiton Rule of SYS-
       \]
     \item $\mr{Compatible}\rightarrow_2$.
   \end{itemize}
-  $=_2$ is the equivalence genertated by $\rightarrow_1\cup \rightarrow_2$.
+  $=_2$ is the equivalence genertated by $ \bigcup \{ \rightarrow_i \}_{i=0}^2$.
 \end{definition}
 
 
@@ -327,8 +344,53 @@ and
 \]
 
 
+\subsubsection*{SYS-3: Elim}
+
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \bb N : \cl U
+    \\ 
+    \bm D & \Gamma & (\cc{Ind} \bb N) : \Pi (X : \bb N \rightarrow \cl U) [ (X \cc 0) \rightarrow \Pi(v_0 : \bb N)((X v_0) \rightarrow X (\cc S v_0)) \rightarrow \Pi(v_1 : \bb N) (X v_1) ]  
+  \end{array}
+\]
+
+\begin{example}
+  Let $P$ be $\lambda (v: \bb N) \Type_0$, which implies that $P$ is a property on $\bb N$. In addition, assume that $p_0$ and $p_S$ are two legal elements in $\mr F$, satisfy $p_0 : P \cc O$ and $p_S : \Pi(v : \bb N)((P v) \rightarrow P (\cc S v))$, means that both propositions $ P \cc 0$ and $\forall n : \bb N \ P n \rightarrow P \cc S n$ are ture, then
+  \[
+    (\cc{Ind}\bb N)(P p_0 p_S) : \Pi (v : \bb N)(P v),
+  \]
+  namely, the proposition $\forall n : \bb N \ P (n)$ is true.
+\end{example}
 
 
 
+
+\subsubsection*{SYS-3: Compu}
+
+ \begin{definition}
+  $\rightarrow_{3} \subset \mr F^2$ is the samllest relation satisfies the following properties:
+  \begin{itemize}
+    \item for all $ \phi, a, b, c \in \mr F$,
+      \[
+         (\cc{Ind}\bb N)(\phi a b \cc 0) \rightarrow_3 a
+      \]
+      and
+      \[
+        (\cc{Ind}\bb N)(\phi a b (\cc S c)) \rightarrow_3 (b c)((\cc{Ind}\bb N)(\phi a b c)) 
+      \]
+    \item $\mr{Compatible}\rightarrow_3$.
+  \end{itemize}
+  $=_3$ is the equivalence genertated by $\bigcup \{\rightarrow_i\}_{i=0}^3$.
+\end{definition}
+
+
+
+
+
+
+
+\section{CIC}
+
+CIC 系统允许我们自由地按照上面的流程来添加新类型和新项. 
 
 
