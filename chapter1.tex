@@ -23,7 +23,7 @@ The whole formulas we use is contained by set
 \begin{notation}
   Here we announce some commonly used notations for avoiding ambiguity.
   \begin{itemize}
-    \item $\bm a = a_0 a_1 \cdots a_m := (a_0, a_1, \cdots, a_m)$;
+    \item $\bm a = a_0 a_1 \cdots a_m$;
     \item $f(\bm x) := f$ where $f \in \mr F$ and $\Fr f \subset \{x_0, \cdots, x_m\}$;
     \item $(f \bm x)$ refers $ (\cdots ((f x_0) x_1) \cdots ) $, note that this may differ the notation $ (f x_0 x_1 \cdots x_m)$, which is equal to our first definition;
     \item for any $b \in B$, $b(\bm v : \bm A)N := b(v_0 : A_0)b(v_1 : A_1) \cdots b(v_m : A_m)N$;
@@ -33,8 +33,13 @@ The whole formulas we use is contained by set
           v_0 : A_0  & v_1 : A_1 & \cdots & v_s : A_s;
         \end{array}
       \]
-    \item $M \to N := \Pi(v : M)N$, in which $v \notin \Fr N$;
-    \item to distinguish between terms in $\mr F$ and constants in $C$, we use a mono font for constants.
+    \item $M \rightarrow N := \Pi(v : M)N$, in which $v \notin \Fr N$;
+    \item to distinguish between terms in $\mr F$ and constants in $C$, we use a mono font for constants;
+    \item $\cl U := \Type_{\aleph_0}$, and $M : \cl U$ implies there exists a $k < \aleph_0$ such that $M : \Type_k$.
+    \item for any relation $\cl R \subset \mr F^2$, $\mr{Compatible} \cl R$ is a abbrivation of the statement: for all if $M \cl R N$, then for any $L, A, \phi_1, \cdots, \phi_s \in \mr F$, $b \in B$, $\cc c \in C$ and $v \in V$, $(ML) \cl R (NL)$, $(LM) \cl R (LN)$, $b(v : A)M \cl R b(v : A)N$ and 
+    \[
+      (\cc c \phi_1 \cdots \phi_k M \phi_{k+1} \cdots \phi_s) \cl R (\cc c \phi_1 \cdots \phi_k N \phi_{k+1} \cdots \phi_s)
+    \]
   \end{itemize}
 \end{notation}
 
@@ -45,7 +50,7 @@ The whole formulas we use is contained by set
   \[
     \cc c (\bm v : \bm A) \equiv d (\bm v) : B,
   \]
-  where $v \in V$, $c \in C$ and all of $A, B, d(\bm v)$ are in $\mr F$.
+  where $v \in V$, $\cc c \in C$ and all of $A, B, d(\bm v)$ are in $\mr F$.
 \end{definition}
 
 
@@ -62,7 +67,7 @@ The whole formulas we use is contained by set
 
 
 
-\textbf{Legal judgements} consist a subset of $\mr F : \mr F$, which is derived from a series of \textbf{rules}. In our SYS-0, we first introduce the following rules. Each of these rules can be viewed as a relation on $\mr{Sqt}^* \times \mr{Sqt}$. 
+\textbf{Legal judgements} consist a subset of $\mr F : \mr F$, which is derived from a series of \textbf{rules}. In our SYS-0, we first introduce the following rules, each of them can be viewed as a relation on $\mr{Sqt}^* \times \mr{Sqt}$. 
 
 
 \subsubsection*{Sort}
@@ -75,11 +80,12 @@ If $m < n$, then
 
 
 
+
 \subsubsection*{Var}
-If $v \in V \smallsetminus (\Gamma \cap V)$, $s \in U$, then
+If $v \in V \smallsetminus (\Gamma \cap V)$, then
 \[
   \begin{array}{llll}
-    \bm D & \Gamma & A : s & 
+    \bm D & \Gamma & A : \cl U  & 
     \\
     \bm D & \Gamma & v : A & v : A
   \end{array}
@@ -93,7 +99,7 @@ If $v \in V \smallsetminus (\Gamma \cap V)$, then
   \begin{array}{llll}
     \bm D & \Gamma & M : A & 
     \\ 
-    \bm D & \Gamma & B : s  &
+    \bm D & \Gamma & B : \cl U   &
     \\
     \bm D & \Gamma & v : B & M : A
   \end{array}
@@ -110,32 +116,219 @@ If $v \in V \smallsetminus (\Gamma \cap V)$, then
 4. Computaiton: 引入$\mr F$上的新关系, 告知系统新系统中某些表达和旧系统中的某些表达具有同样的语义.
 
 
-现在我们将拓展SYS-0, 增加$\lambda$项和$\Pi$类型. 
+现在我们将拓展SYS-0, 增加$\lambda$-Terms 和 $\Pi$-Types. 
 
 
 \subsubsection*{SYS-1: Form}
 If $s_1 \leq s_2$, then
 \[
   \begin{array}{llll}
-    \bm D & \Gamma & A : s_1  &
+    \bm D & \Gamma & A : \cl U  &
     \\ 
-    \bm D & \Gamma & v : A    & B : s_2
+    \bm D & \Gamma & v : A    & B : \cl U
     \\
-    \bm D & \Gamma & \Pi (v : A) B : s_2
+    \bm D & \Gamma & \Pi (v : A) B : \cl U
   \end{array}
 \]
 
 
 
 \subsubsection*{SYS-1: Constr}
-If $s_1 \leq s_2$, then
 \[
   \begin{array}{llll}
-    \bm D & \Gamma & A : s_1  &
+    \bm D & \Gamma & v : A  & M : B
     \\ 
-    \bm D & \Gamma & v : A    & B : s_2
+    \bm D & \Gamma & \Pi(v: A)B : \cl U   &
     \\
-    \bm D & \Gamma & \Pi (v : A) B : s_2
+    \bm D & \Gamma & \lambda(v:A)M : \Pi(v:A)B  &
   \end{array}
 \]
+
+
+
+\subsubsection*{SYS-1: Elim}
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & M : \Pi (v : A) B
+    \\ 
+    \bm D & \Gamma & N : A
+    \\
+    \bm D & \Gamma & (MN) : B\frac{N}{v}
+  \end{array}
+\]
+
+
+
+
+\subsubsection*{SYS-1: Compu}
+
+\begin{definition}
+  $\rightarrow_{1} \subset \mr F^2$ is the samllest relation satisfies the following properties:
+  \begin{itemize}
+    \item for any $A, M, N$ in $\mr F$, $(\lambda (v : A) M N) \rightarrow_1 M \frac{N}{v}$;
+    \item $\mr{Compatible}\rightarrow_1$.
+  \end{itemize}
+\end{definition}
+
+
+Based on this newly defiened relation, we introduce the Computaiton Rule of SYS-1 as follows. If $B =_1 B'$, then
+
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & M : B
+    \\ 
+    \bm D & \Gamma & B' : \cl U 
+    \\
+    \bm D & \Gamma & M : B'
+  \end{array}
+\]
+
+
+
+
+
+
+
+
+\section{SYS-2}
+
+在 SYS-1 的基础上加入 $\Sigma$-Types 得到SYS-2.
+
+
+
+\subsubsection*{SYS-2: Form}
+
+\[
+  \begin{array}{llll}
+    \bm D & \Gamma & A : \cl U   &
+    \\ 
+    \bm D & \Gamma & v : A  & B : \cl U 
+    \\
+    \bm D & \Gamma & \Sigma (v : A) B
+  \end{array}
+\]
+
+
+
+
+\subsubsection*{SYS-2: Constr}
+
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \Sigma (v : A) B
+    \\ 
+    \bm D & \Gamma & a : A  
+    \\
+    \bm D & \Gamma & b : B\frac{a}{v}
+    \\
+    \bm D & \Gamma & (\cc{pair} a b) : \Sigma (v : A) B
+  \end{array}
+\]
+
+
+定义Elim前先明确我需求, 对任何 Type 或者 Universe $Q$, 通过给定的项$\phi: \Pi(v : A)(B v \rightarrow Q)$, 其中$B v$指的是公式的合并$(B v)$, 我们可以构造出一个具有类型$(\Sigma (v : A) Bv) \rightarrow Q$的项 $\psi$. 所以, 有理由将规则设计成下面这个样子:
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \Sigma (v : A) B : \cl U 
+    \\ 
+    \bm D & \Gamma & \phi : \Pi (v : A) (Bv \rightarrow Q)
+    \\
+    \bm D & \Gamma & (\cc{Elim} \phi Q) :  (\Sigma (v : A) Bv) \rightarrow Q
+  \end{array}
+\]
+然后再加入新关系$\rightarrow_2$, 其包含下面内容
+\[
+  ((\cc{Elim} \phi Q) (\cc{pair} a b )) \rightarrow_2 ((\phi a) b)
+\]
+
+
+除此之外还有一种更普遍的方法, 它是从更复杂的功能中下放到这里的. 
+
+
+\subsubsection*{SYS-2: Elim}
+
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \Sigma (v : A) B : \cl U   
+    \\
+    \bm D & \Gamma & \begin{gathered}  (\cc{Ind} \Sigma (v : A) B) :  \Pi (X:(\Sigma(v_0 : A)B) \rightarrow s) . \\  [\Pi(v_1 : A)(v_2 : B v_2) (X \cc{pair} v_1 v_2) \rightarrow \Pi(v_3: \Sigma(v_4 : A)B v_4) (X v_3)]
+ \end{gathered}
+%    (\cc{Ind} \Sigma (v : A) B) :  \Pi (X:(\Sigma(v_0 : A)B) \rightarrow s) . [\Pi(v_1 : A)(v_2 : B v_2) (X \cc{pair} v_1 v_2) \rightarrow \Pi(v_3: \Sigma(v_4 : A)B v_4) (X v_3)]
+  \end{array}
+\]
+可见如果给出常函数$H = \lambda(X : \Sigma(v_0 : A)B)Q : \Pi (X:(\Sigma(v_0 : A)B) \rightarrow s$, 还有
+\[
+  \phi : \Pi (v_0 : A)(v_1 : B v_0) H (\cc{pair} v_0 v_1) =  \Pi (v_0 : A)(v_1 : B v_0) Q,
+\]
+那么
+\[
+  (\cc{Ind}\Sigma (v : A) B) (H \phi) : (\Sigma (v : A) Bv) \rightarrow Q.
+\]
+
+
+
+\subsubsection*{SYS-2: Compu}
+
+ \begin{definition}
+  $\rightarrow_{2} \subset \mr F^2$ is the samllest relation satisfies the following properties:
+  \begin{itemize}
+    \item for all $ a, b, A, B, \phi, H \in \mr F$,
+      \[
+        (\cc{Ind}\Sigma(v: A)B)(H\phi a b) \rightarrow_2 (\phi a) b
+      \]
+    \item $\mr{Compatible}\rightarrow_2$.
+  \end{itemize}
+  $=_2$ is the equivalence genertated by $\rightarrow_1\cup \rightarrow_2$.
+\end{definition}
+
+
+
+
+
+
+
+\section{SYS-3}
+
+在 SYS-2 中加入自然数类型 $\bb N$ 使其成为 SYS-3.
+
+
+\subsubsection*{SYS-3: Form}
+
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \emty
+    \\ 
+    \bm D & \Gamma & \bb N : \cl U 
+  \end{array}
+\]
+
+
+
+
+\subsubsection*{SYS-3: Constr}
+
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \bb N : \cl U
+    \\ 
+    \bm D & \Gamma & \cc 0 : \bb N 
+  \end{array}
+\]
+
+and 
+
+
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \bb N : \cl U
+    \\ 
+    \bm D & \Gamma & \cc S : \bb N \rightarrow \bb N
+  \end{array}
+\]
+
+
+
+
+
+
 
