@@ -387,17 +387,27 @@ and it immediately follows that
 
 
 
-% Assume that $ X : \Pi (\bm x: \bm A).s $, $Y :  \Pi (\bm x: \bm A).s'$ and $c \in \mr C_X$. 
+Assume that 
 
-% This induces a function $E_{X, Y}: \mr C_X \to \mr C_Y$, which is defined inductively.
-% \begin{align*}
-%   &E_{X, Y}(X) = X\\
-%   &E_{X, Y}(c M) =  E_{X, Y}(c) M\\
-%   &E_{X, Y}(M \to c) = M \to M[Y/X] \to E_{X, Y}(c) \\
-%   &E_{X, Y}(\Pi x: M.c) = \Pi x: M. E_{X, Y}(c) \ (X \notin M)
-% \end{align*}
-% 
-% 
+\begin{itemize}
+  \item $\Fml \ni X : \Pi (\bm x: \bm A).s $
+  \item $C \ni Y :  \Pi (\bm x: \bm A).s'$
+  \item $c \in \mr C_X$
+  \item $P \in \mr P_X$
+  \item $f_0, \cdots, f_m \in C$
+  % \item $E_{\Psi, Z}(c) := E_{X, Y}(c) \frac{\Psi\ Z}{X\ Y}$,
+  \item $\bm a \in \Fml^*$
+\end{itemize}
+we can define a new function $E_{X, Y} : \mr C_X \to \mr C_Y$ inductivly, as follows
+
+\begin{align*}
+  &E_{X, Y}(X) = X\\
+  &E_{X, Y}(c M) =  E_{X, Y}(c) M\\
+  &E_{X, Y}(P \to c) = P \to P[Y/X] \to E_{X, Y}(c) \\
+  &E_{X, Y}(\Pi x: M.c) = \Pi x: M. E_{X, Y}(c)
+\end{align*}
+and note that $E_{\Phi, Y}(c) := E_{X, Y}(c) \frac{\Phi}{X}$ 
+
 % \begin{lemma}
 %   If for all $s''$, $(s'', s) \in \cl A$ implies $(s'', s') \in \cl A$, and $(s', s') \in \cl A$, then the follows is derivable
 %   \[
@@ -412,18 +422,22 @@ and it immediately follows that
 % 
 % 
 % If $f_0, \cdots, f_m$ and $G$ are new constant symbols, we have
-% \[
-%   \begin{array}{lll}
-%     \Delta   &\Gamma   & G: \Ind X \bm a  \\
-%     \Delta   &\Gamma   & Y : \Pi (\bm x: \bm A).s' \\
-%     \Delta   &\Gamma   & f_0 : E_{X, Y}(c_0) \\
-%              &         & \vdots \\
-%     \Delta   &\Gamma   & f_m : E_{X, Y}(c_m) \\
-%     \Delta   &\Gamma   & \Elim G Y f_0 f_1 \cdots f_m : Y \bm a
-%   \end{array}
-% \]
-% 
+In addition, we have
+\[
+  \begin{array}{lll}
+    \Delta   &\Gamma   & d: (\Ind X) \bm a  \\
+    \Delta   &\Gamma   & Y : \Pi (\bm x: \bm A).s' \\
+    \Delta   &\Gamma   & f_0 : E_{\Ind X, Y}(c_0) \\
+             &         & \vdots \\
+    \Delta   &\Gamma   & f_m : E_{\Ind X, Y}(c_m) \\
+    \Delta   &\Gamma   & \Elim d Y f_0 f_1 \cdots f_m : Y \bm a
+  \end{array}
+\]
+where $I \bm a$ is defined inductivly, that is, $I a_1 a_2 \cdots a_n = (I a_1) (a_2 \cdots a_n)$.
 
+
+
+Hypothesis: $d : \Ind X \bm a \leftrightarrow d : c \in \mr C_{\Ind X}$
 
 
 % Assume that $ X : \Pi (\bm x: \bm A).s $, $Y :  \Pi (\bm x: \bm A).s'$, $d : c \in \mr C_X$ and $p : P = \Pi(\bm x' : \bm P') . (X \bm m') \in \mr P_X$, we define a new function $E_{X, Y, d} : \mr C_X \to \mr C_Y$, as follows
@@ -434,7 +448,10 @@ Assume that
   \item $C \ni Y :  \Pi (\bm x: \bm A).(X \bm x) \to s'$
   \item $\Fml \ni d : c \in \mr C_X$
   \item $P = \Pi(\bm x' : \bm P') . (X \bm m') \in \mr P_X$
-  \item $p \in V$ is a new variable
+  \item $p \in V$
+  \item $f_0, \cdots, f_m \in C$
+ % \item $G \in V$
+  \item $\bm a \in \Fml^*$
 \end{itemize}
 we can define a new function $E_{X, Y, d} : \mr C_X \to \mr C_Y$ inductivly, as follows
 
@@ -472,16 +489,15 @@ we can define a new function $E_{X, Y, d} : \mr C_X \to \mr C_Y$ inductivly, as 
 
 
 
-
-If $f_0, \cdots, f_m$ and $G$ are new constant symbols, we have
+we have
 \[
   \begin{array}{lll}
-    \Delta   &\Gamma   & G: \Ind X \bm a  \\
+    \Delta   &\Gamma   & d: (\Ind X) \bm a  \\
     \Delta   &\Gamma   & Y : \Pi (\bm x: \bm A) . ((\Ind X \bm x) \to s') \\
     \Delta   &\Gamma   & f_0 : E_{\Ind X, Y, \Cstr \Ind X 0}(c_0) \\
              &         & \vdots \\
     \Delta   &\Gamma   & f_m : E_{\Ind X, Y, \Cstr \Ind X m}(c_m) \\
-    \Delta   &\Gamma   & \Elim G Y f_0 f_1 \cdots f_m : (Y \bm a G)
+    \Delta   &\Gamma   & \Elim d Y f_0 f_1 \cdots f_m : (Y \bm a d)
   \end{array}
 \]
 
@@ -495,7 +511,7 @@ Again, suppose $u, v \in \Fml$ we define a function $H_{X, u, v}: \mr C_X \to \F
 \begin{align*}
   & H_{X, u ,v} (X) = v \\
   & H_{X, u ,v} (c M) = H_{X, u ,v} (c) \\
-  & H_{X, u ,v} (P \to c) = \lambda p: P . H_{X, u ,(v p \lambda (\bm x : \bm P). (v \bm m (p \bm x)))}(c) \\
+  & H_{X, u ,v} (P \to c) = \lambda p: P . H_{X, u ,(v p \lambda (\bm x : \bm P). (v \bm m' (p \bm x)))}(c) \\
   & H_{X, u ,v} (\Pi x : M. c) = \lambda x : M . H_{X, u ,v x} (c)
 \end{align*}
 
@@ -503,9 +519,9 @@ Again, suppose $u, v \in \Fml$ we define a function $H_{X, u, v}: \mr C_X \to \F
 
 
 \begin{definition}
-  Suppose $\bm f$ has the shape of $m$, $\rightarrow_{\iota}$ is a relation in $\Fml^2$ contains
+  Let $\bm f$ be $f_0f_2\cdots f_m$, $\rightarrow_{\iota}$ is a relation in $\Fml^2$ contains
   \[
-  \Elim \Cstr \Ind X i \bm m Y \bm f \rightarrow_{\iota} H_{\Ind X, \lambda(\bm x : \bm A). \lambda G : \Ind X \bm x . \Elim G Y \bm f , f_i } (c_i)\bm m
+  \Elim (\Cstr \Ind X i) \bm m' Y \bm f \rightarrow_{\iota} H_{\Ind X, \lambda(\bm x : \bm A). \lambda d : \Ind X \bm x . \Elim G Y \bm f , f_i } (c_i)\bm m'
   \]
 \end{definition}
 
@@ -524,7 +540,7 @@ In COC, we have introduced the following sequent rules.
 If $(s_1, s_2) \in \cl A$, then 
 \[
   \begin{array}{lll}
-    \emty & \emty & s_1 ; s_2
+    \emty & \emty & s_1 : s_2
   \end{array}
 \]
 
