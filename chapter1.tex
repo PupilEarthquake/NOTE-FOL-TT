@@ -106,8 +106,8 @@ If $v \in V \smallsetminus (\Gamma \cap V)$, then
 \]
 
 
-\subsubsection*{Compu}
-Given the equivalence relation $=_a \subset \mr F^2$, if $B =_a B'$, then
+\subsubsection*{Conv}
+For an arbitrary equivalence relation $=_a \subset \mr F^2$, if $B =_a B'$, then
 \[
   \begin{array}{lll}
     \bm D & \Gamma & M : B
@@ -117,6 +117,54 @@ Given the equivalence relation $=_a \subset \mr F^2$, if $B =_a B'$, then
     \bm D & \Gamma & M : B'
   \end{array}
 \]
+
+
+
+\subsubsection*{Def}
+If $D = \cc c (\bm v : \bm A) \equiv d(\bm v) : B$, in which $d(\bm v)$ can be an empty string $\emty$, then
+\[
+  \begin{array}{llll}
+    \bm D & \Gamma & K : L  &
+    \\ 
+    \bm D & \Gamma & \bm v : \bm A & M : N 
+    \\
+    \bm D D & \Gamma & K:L &
+  \end{array}
+\]
+
+
+
+
+
+\subsubsection*{Inst}
+If $\cc c (\bm v : \bm A) \equiv d (\bm v) : B \in \bm D$, where $d$ may be an empty string, then 
+\[
+  \begin{array}{lll}
+    \bm D & \Gamma & \Type_0 : \Type_1
+    \\ 
+    \bm D & \Gamma & \xi_0 : A \tfrac{\xi_0 \ \cdots \ \xi_m}{v_0 \ \cdots \ v_m}
+    \\
+          & \vdots &
+    \\
+    \bm D & \Gamma & \xi_m : A \tfrac{\xi_0 \ \cdots \ \xi_m}{v_0 \ \cdots \ v_m} 
+    \\
+    \bm D & \Gamma & (\cc c \bm{\xi}) : B \tfrac{\xi_0 \ \cdots \ \xi_m}{v_0 \ \cdots \ v_m} 
+  \end{array}
+\]
+
+
+
+
+\subsubsection*{Compu}
+\begin{definition}
+  For any definition $\bm D$, $\rightarrow_{\bm D}$ is the samllest relation constants
+  \[
+    (\cc c \bm{\xi}) \rightarrow_{\bm D} d(\bm{\xi}),
+  \]
+  for all $\cc c \in \bm D$, $\bm{\xi} \in \mr F^*$, and satisfies Compatible $\rightarrow_{\bm D}$.
+\end{definition}
+
+
 
 
 
@@ -508,7 +556,7 @@ and
     & \qquad \texttt{if } B \in \mr F\text{ and } t \notin B, \\
     & \qquad \qquad F^e_{t|f} (r, \Pi(v : B) x) = \lambda(v : B) F^e_{t|f}((rv), x) \\
     & \qquad  \texttt{if } \bb P(t) \ni B = \Pi(\bm b: \bm B)(t \bm N) \text{ and } t \in B,\\ 
-    & \qquad \qquad F^e_{t|f}(r, \Pi(v : B) x) = \lambda(v : B)F^e_{t|f}(r v \lambda(\bm b : \bm B)(f \bm B (v \bm b)) , x).
+    & \qquad \qquad F^e_{t|f}(r, \Pi(v : B) x) = \lambda(v : B)F^e_{t|f}(r v \lambda(\bm b : \bm B)(f \bm N (v \bm b)) , x).
   \end{align*}
 
 \end{definition}
@@ -564,10 +612,19 @@ Without losing generality, suppose that $X \in V$ ,$C_i \in \bb C(X)$ and $\Pi(\
   \end{array}
 \]
 
+当然, 正如之前的例子, 最后一句话也可以写成
+\begin{align*}
+  \cc{IndX} : \Pi(Z :  \Pi(\bm a : \bm A)(X \bm a) \rightarrow \Type_0 ) (&[F^d_{X| Q}(r_0, C_0)]\tfrac{\cc X \ \cc{ConstriX}}{X \ r_0} \rightarrow \cdots \\ 
+  &\rightarrow [F^d_{X| Q}(r_m, C_m)]\tfrac{\cc X \ \cc{ConstriX}}{X \ r_m}  \rightarrow Z \bm W)
+\end{align*}
+
 
 \subsubsection*{CIC: Compu}
-For any $Q, f_i, M_i, A_i \in \mr F$, $\cc X, \cc i \in C$ and $a_i, \mu \in V$,  
-\[
-  (\cc{IndX})(Q f_0 \cdots f_m (\cc{ConstrXi} \bm M)) \rightarrow_{\cc X} F^e_{\cc X|\lambda(\bm a : \bm A) \lambda (\mu : (\cc X \bm a)) \cc{IndX} Q f_0 \cdots f_m \mu }(f_i, \bm M)
-\]
-and $\mr{Compatible}\rightarrow_{\cc X}$.
+\begin{definition}
+  For any $Q, f_i, M_i, A_i \in \mr F$, $\cc X, \cc i \in C$ and $X, a_i, \mu \in V$,  
+  \[
+    (\cc{IndX})(Q f_0 \cdots f_m (\cc{ConstrXi} \bm M)) \rightarrow_{\cc X} [F^e_{X|\lambda(\bm a : \bm A) \lambda (\mu : (\cc X \bm a)) \cc{IndX} Q f_0 \cdots f_m \mu }(f_i, C_i)\tfrac{\cc X}{X}] \bm M
+  \]
+  and $\mr{Compatible}\rightarrow_{\cc X}$.  
+\end{definition}
+
