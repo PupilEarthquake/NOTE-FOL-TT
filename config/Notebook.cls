@@ -115,6 +115,7 @@
 	\newtheorem{definition}[theorem]{Definition}
 	\newtheorem{hypothesis}[theorem]{Hypothesis}
 	\newtheorem{example}[theorem]{Example}
+  \newtheorem{notation}[theorem]{Notation}
 
 	\theorembodyfont{}
 	\theoremstyle{nonumberplain}
